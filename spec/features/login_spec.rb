@@ -19,7 +19,9 @@ RSpec.describe "Logging In" do
 
     expect(page).to have_content("Welcome, #{user.username}")
     expect(page).to_not have_link("I already have an account")
+    expect(page).to_not have_link("Register as a User")
     expect(page).to have_link("Log Out")
+    expect(page).to have_content("Logged in as #{user.username}")
   end
 
   it "cannot log in with bad credentials" do
