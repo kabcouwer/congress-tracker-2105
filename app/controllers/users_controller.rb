@@ -11,8 +11,22 @@ class UsersController < ApplicationController
      redirect_to root_path
  end
 
-  private
-  def user_params
+ def login_form
+ end
+
+ def authenticate_user
+   found_user = User.find_by(username: params[:username])
+   if found_user.authenticate(params[:password])
+     flash[:success] = "Welcome, #{found_user.username}!"
+     redirect_to root_path
+   else
+     flash[:error] = "Sorry, your credentials are bad."
+     render :login_form
+   end
+ end
+
+ private
+ def user_params
     params.require(:user).permit(:username, :password)
   end
 end
